@@ -26,16 +26,15 @@ def load_data(table_name,file_path):
         print(f">> Inserting Data into: {table_name}")
         cursor.execute(load_query)
         print('='*50)
-        print(f"Successfully loaded {cursor.rowcount} into table {table_name}")
-        print('='*50)
+        print(f"Successfully loaded {cursor.rowcount} rows into table {table_name}")
+        
     except mysql.connector.Error as err:
         print(f"Error Occured: {err}")
     finally:
         end_time = time.perf_counter()
         time_difference = end_time-start_time
-        print('-'*50)
         print(f">> Load Duration: {time_difference:.2f} seconds")
-        print('-'*50)
+        print('='*50)
     return time_difference
     
 
@@ -63,9 +62,9 @@ try:
         "./../../datasets/source_erp/px_cat_g1v2.csv"
         ]
 
-    print("="*20)
+    print("="*50)
     print("LOADING DATA INTO BRONZE LAYER")
-    print("="*20)
+    print("="*50)
 
     total_loading_time = 0
 
