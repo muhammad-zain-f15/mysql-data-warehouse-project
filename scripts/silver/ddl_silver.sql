@@ -1,3 +1,8 @@
+-- ==================================================
+-- DDL Script
+-- Purpose: This Script Create tables in the silver schema
+-- Warning: If same name tables already exist in the bronze schema, running script will throw an error. Drop the tables then run the script.
+-- ==================================================
 
 CREATE TABLE silver.crm_cust_info (
 cst_id INT,
@@ -12,10 +17,11 @@ dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
 
 CREATE TABLE silver.crm_prd_info (
 prd_id INT,
+cat_id varchar(20),
 prd_key VARCHAR(20),
 prd_nm VARCHAR(50),
 prd_cost INT,
-prd_line VARCHAR(10),
+prd_line VARCHAR(15),
 prd_start_dt DATE,
 prd_end_dt DATE,
 dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -25,9 +31,9 @@ CREATE TABLE silver.crm_sales_details (
 sls_ord_num VARCHAR(20),
 sls_prd_key VARCHAR(20),
 sls_cust_id INT,
-sls_order_dt INT,
-sls_ship_dt INT,
-sls_due_dt INT,
+sls_order_dt DATE,
+sls_ship_dt DATE,
+sls_due_dt DATE,
 sls_sales INT,
 sls_quantity INT,
 sls_price INT,
