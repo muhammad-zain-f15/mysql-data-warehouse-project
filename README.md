@@ -10,5 +10,5 @@ Perform Comprehensive Analysis on Data and extract insights.
 
 # Data Warehouse Architecture
 This Project uses Medallion Architecture. 
-![Data Warehouse Architecture](docs/Architecture.png)
+![Data Warehouse Architecture](docs/data_architecture.png)
 
