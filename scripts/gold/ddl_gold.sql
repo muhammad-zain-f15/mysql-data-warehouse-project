@@ -62,8 +62,9 @@ SELECT sls_ord_num order_number,
     sls_ship_dt ship_date,
     sls_due_dt due_date,
     sls_sales sales_amount,
-    sls_quantity qauntity,
+    sls_quantity quantity,
     sls_price price
 FROM silver.crm_sales_details as sales
     LEFT JOIN gold.dim_customers dc ON dc.customer_id = sales.sls_cust_id
     LEFT JOIN gold.dim_products dp ON dp.product_number = sales.sls_prd_key;
+
