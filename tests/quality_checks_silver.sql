@@ -1,4 +1,12 @@
 -- ==============================================
+-- Purpose: This script performs various quality checks on silver schema tables
+-- Different Types of Checks are performed like
+--  unwanted spaces
+--  Null or Duplicates
+--  Standardization and Consistency
+-- ==============================================
+
+-- ==============================================
 -- Checking silver.crm_cust_info
 -- ==============================================
 -- Check for nulls or duplicates in Primary key
