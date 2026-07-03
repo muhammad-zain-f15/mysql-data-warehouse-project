@@ -37,6 +37,7 @@ sls_due_dt DATE,
 sls_sales INT,
 sls_quantity INT,
 sls_price INT,
+dwh_profit INT,
 dwh_create_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
