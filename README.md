@@ -48,6 +48,32 @@ Last but not the least, I move towards answering business relevant complex quest
 
 I try to answer complex questions using these types of analysis. At last, I move towards creating two reports to provide an overview at a glance of important business objects (customers and products).
 
+# Sales Dashboard
+## Target Audience
+<ul>
+    <li>Sales Manager</li>
+    <li>Executives</li>
+</ul>
+
+## Purpose of Dashboard
+<ul>
+    <li>Analyze year-over-year sales performance</li>
+    <li>Understand Sales Trends</li>
+    <li>Analyze and Understand Customer behavior</li>
+</ul>
+
+## Key Requirements
+### KPI Overview
+Display the Following KPIs for the <b>current</b> and the <b>previous</b> year.
+<ul>
+    <li>Total Sales</li>
+    <li>Profit</li>
+    <li>Quantity</li>
+</ul>
+
+
+
+
 # Conclusion
 This project is a greate learning experience for me where I learn how to plan,execute and finish. 
 
