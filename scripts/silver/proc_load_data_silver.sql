@@ -4,7 +4,8 @@
     MySql Example usage: call silver.load_crm_cust_info();
 */
 -- load crm_cust_info data
-DELIMITER // CREATE PROCEDURE silver.load_crm_cust_info() BEGIN TRUNCATE TABLE silver.crm_cust_info;
+DELIMITER //
+CREATE PROCEDURE silver.load_crm_cust_info() BEGIN TRUNCATE TABLE silver.crm_cust_info;
 INSERT INTO silver.crm_cust_info (
         cst_id,
         cst_key,
@@ -77,10 +78,16 @@ SELECT prd_id,
         INTERVAL 1 DAY
     ) as prd_end_dt -- calculate end date as one day before the next start date
 FROM bronze.crm_prd_info;
-END // DELIMITER;
+END // 
+
+DELIMITER ;
 
 -- load crm_sales_details data
-DELIMITER // CREATE PROCEDURE silver.load_crm_sales_details() BEGIN TRUNCATE TABLE silver.crm_sales_details;
+DELIMITER //
+CREATE PROCEDURE silver.load_crm_sales_details()
+
+BEGIN 
+TRUNCATE TABLE silver.crm_sales_details;
 INSERT INTO silver.crm_sales_details (
         sls_ord_num,
         sls_prd_key,
@@ -90,52 +97,77 @@ INSERT INTO silver.crm_sales_details (
         sls_due_dt,
         sls_price,
         sls_quantity,
-        sls_sales
+        sls_sales,
+        dwh_profit
     )
-SELECT bronze_table.sls_ord_num,
-    bronze_table.sls_prd_key,
-    bronze_table.sls_cust_id,
-    cast(bronze_table.sls_order_dt as Date),
-    cast(bronze_table.sls_ship_dt as Date),
-    cast(bronze_table.sls_due_dt as Date),
-    bronze_table.sls_price,
-    bronze_table.sls_quantity,
-    case
-        when bronze_table.sls_sales <= 0
-        or bronze_table.sls_sales <> bronze_table.sls_price * bronze_table.sls_quantity then bronze_table.sls_price * bronze_table.sls_quantity
-        else bronze_table.sls_sales
-    end as sls_sales
-from (
-        SELECT sls_ord_num,
-            sls_prd_key,
-            sls_cust_id,
-            case
-                sls_order_dt
-                when 0 then NULL
-                when length(sls_order_dt) <> 8 then NULL
-                else cast(sls_ship_dt as CHAR)
-            end as sls_order_dt,
-            case
-                sls_ship_dt
-                when 0 then NULL
-                when length(sls_ship_dt) <> 8 then NULL
-                else cast(sls_ship_dt as CHAR)
-            end as sls_ship_dt,
-            case
-                sls_due_dt
-                when 0 then NULL
-                when length(sls_due_dt) <> 8 then NULL
-                else cast(sls_due_dt as CHAR)
-            end as sls_due_dt,
-            sls_sales,
-            sls_quantity,
-            case
-                when sls_price <= 0 then sls_sales / NULLIF(sls_quantity, 0)
-                else sls_price
-            end as sls_price
-        FROM bronze.crm_sales_details
-    ) AS bronze_table;
-END // DELIMITER;
+
+WITH sales_info AS
+(
+    SELECT bronze_table.sls_ord_num,
+        bronze_table.sls_prd_key,
+        bronze_table.sls_cust_id,
+        cast(bronze_table.sls_order_dt as Date) as sls_order_dt,
+        cast(bronze_table.sls_ship_dt as Date) as sls_ship_dt,
+        cast(bronze_table.sls_due_dt as Date) as sls_due_dt,
+        bronze_table.sls_price,
+        bronze_table.sls_quantity,
+        case
+            when bronze_table.sls_sales <= 0
+            or bronze_table.sls_sales <> bronze_table.sls_price * bronze_table.sls_quantity then bronze_table.sls_price * bronze_table.sls_quantity
+            else bronze_table.sls_sales
+        end as sls_sales
+    from (
+            SELECT sls_ord_num,
+                sls_prd_key,
+                sls_cust_id,
+                case
+                    sls_order_dt
+                    when 0 then NULL
+                    when length(sls_order_dt) <> 8 then NULL
+                    else cast(sls_ship_dt as CHAR)
+                end as sls_order_dt,
+                case
+                    sls_ship_dt
+                    when 0 then NULL
+                    when length(sls_ship_dt) <> 8 then NULL
+                    else cast(sls_ship_dt as CHAR)
+                end as sls_ship_dt,
+                case
+                    sls_due_dt
+                    when 0 then NULL
+                    when length(sls_due_dt) <> 8 then NULL
+                    else cast(sls_due_dt as CHAR)
+                end as sls_due_dt,
+                sls_sales,
+                sls_quantity,
+                case
+                    when sls_price <= 0 then sls_sales / NULLIF(sls_quantity, 0)
+                    else sls_price
+                end as sls_price
+            FROM bronze.crm_sales_details
+        ) AS bronze_table
+
+)
+
+SELECT 
+   sls_ord_num,
+    sls_prd_key,
+    sls_cust_id,
+    sls_order_dt,
+    sls_ship_dt,
+    sls_due_dt,
+    sls_price,
+    sls_quantity,
+    sls_sales,
+    (sls_price-p.prd_cost)*sls_quantity as "profit"
+FROM sales_info as s
+LEFT JOIN silver.crm_prd_info AS p 
+ON s.sls_prd_key = p.prd_key;
+
+
+END //
+
+DELIMITER;
 
 -- load erp_cust_az12 data
 DELIMITER // CREATE PROCEDURE silver.load_erp_cust_az12() BEGIN TRUNCATE TABLE silver.erp_cust_az12;
