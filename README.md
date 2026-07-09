@@ -1,16 +1,17 @@
-# Data Warehouse And Analytics Project
+# Data Warehouse ,Analytics and Reporting Project
 # Project Requirements
 
 ### 1. Building Data Warehouse
 Design and Develop Data Warehouse system that integrate data from two sources.
 
 ### 2. BI: Analytics and Reporting
-Perform Comprehensive Analysis on Data and extract insights.
+Perform Comprehensive Analysis on Data, Build Dashboard and Extract Insights.
 
 # Tools 
 <ol>
 <li>MySql</li>
 <li>Python</li>
+<li>PowerBi</li>
 <li>Draw.io</li>
 <li>Notion</li>
 <li>GitHub 😉</li>
