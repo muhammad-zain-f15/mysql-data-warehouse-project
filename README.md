@@ -1,4 +1,4 @@
-# Data Warehouse ,Analytics and Reporting Project
+# Data Warehouse, Analytics and Reporting Project
 # Project Requirements
 
 ### 1. Building Data Warehouse
