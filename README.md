@@ -49,6 +49,7 @@ Last but not the least, I move towards answering business relevant complex quest
 I try to answer complex questions using these types of analysis. At last, I move towards creating two reports to provide an overview at a glance of important business objects (customers and products).
 
 # Sales Dashboard
+![Sales Dashboard](docs/sales_dashboard.png)
 ## Target Audience
 <ul>
     <li>Sales Manager</li>
@@ -59,7 +60,6 @@ I try to answer complex questions using these types of analysis. At last, I move
 <ul>
     <li>Analyze year-over-year sales performance</li>
     <li>Understand Sales Trends</li>
-    <li>Analyze and Understand Customer behavior</li>
 </ul>
 
 ## Key Requirements
@@ -70,9 +70,13 @@ Display the Following KPIs for the <b>current</b> and the <b>previous</b> year.
     <li>Profit</li>
     <li>Quantity</li>
 </ul>
+Also compare the current and previous Monthly Sales Trends.
 
+### Sub-Category Comparison
+Compare the current and previous year Sales. I have group sub-categories into best,top and other as there are many sub-categories.
 
-
+### Weekly Sales and Profit Trend
+Compare the current year sales and profit to find sales trends.
 
 # Conclusion
 This project is a greate learning experience for me where I learn how to plan,execute and finish. 
