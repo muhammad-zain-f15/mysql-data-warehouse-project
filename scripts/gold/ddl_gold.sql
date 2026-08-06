@@ -59,7 +59,6 @@ sls_due_dt due_date,
 sls_quantity quantity,
 sls_price price,
 sls_sales sales,
-p.product_cost,
 (sls_sales-(p.product_cost*sls_quantity)) as profit
 from silver.crm_sales_details s
 join gold.dim_customers c on s.sls_cust_id = c.customer_id
