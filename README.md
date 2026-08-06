@@ -10,7 +10,6 @@ Perform Comprehensive Analysis on Data, Build Dashboard and Extract Insights.
 # Tools 
 <ol>
 <li>MySql</li>
-<li>Python</li>
 <li>PowerBi</li>
 <li>Draw.io</li>
 <li>Notion</li>
